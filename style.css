@@ -1,0 +1,427 @@
+/* =========================================
+   BANGLADESH THEME - HVAC CALCULATOR CSS
+   ========================================= */
+
+/* Google Font Import (Hind Siliguri for Bengali/English support) */
+@import url('https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Segoe+UI:wght@400;600;700&display=swap');
+
+:root {
+    /* Bangladesh Flag & Nature Palette */
+    --bd-green: #006a4e;   /* Bottle Green */
+    --bd-red: #f42a41;     /* Flag Red */
+    --dark-green: #004d38; /* Darker Green for hover */
+    --soft-green: #e8f5e9; /* Background tint */
+    --gold: #f59e0b;       /* Golden accent */
+    
+    /* Semantic Variables */
+    --primary: var(--bd-green);
+    --secondary: #1b4d3e;
+    --accent: var(--bd-red);
+    --bg-gradient-start: #e8f5e9;
+    --bg-gradient-end: #f1f8e9;
+    --white: #ffffff;
+    --border: #cce3de;
+    --text: #1a2f26;
+    --shadow: rgba(0, 106, 78, 0.1);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Hind Siliguri', 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+    color: var(--text);
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+.app-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ================= HEADER ================= */
+.app-header {
+    background: var(--white);
+    padding: 20px 30px;
+    border-radius: 12px;
+    /* Flag Concept: Red bottom, Green top borders */
+    border-top: 5px solid var(--bd-green);
+    border-bottom: 5px solid var(--bd-red);
+    box-shadow: 0 10px 25px var(--shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo i {
+    font-size: 2.2rem;
+    color: var(--bd-red); /* Sun symbol */
+    background: rgba(244, 42, 65, 0.1);
+    padding: 12px;
+    border-radius: 50%;
+}
+
+.logo h1 {
+    margin: 0;
+    font-size: 1.6rem;
+    color: var(--bd-green);
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.logo p {
+    margin: 2px 0 0;
+    color: #556b62;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.btn-theory {
+    background: var(--white);
+    color: var(--bd-green);
+    border: 2px solid var(--bd-green);
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-theory:hover {
+    background: var(--bd-green);
+    color: var(--white);
+    box-shadow: 0 4px 12px rgba(0, 106, 78, 0.8);
+}
+
+/* ================= LAYOUT GRID ================= */
+.calculator-grid {
+    display: grid;
+    grid-template-columns: 1.8fr 1.2fr;
+    gap: 25px;
+}
+
+@media (max-width: 900px) {
+    .calculator-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ================= CARDS & INPUTS ================= */
+.card {
+    background: var(--white);
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    margin-bottom: 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px var(--shadow);
+    transition: transform 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+.card-header {
+    background: #f1f8e9; /* Very light green */
+    padding: 12px 20px;
+    font-weight: 700;
+    color: var(--bd-green);
+    border-bottom: 1px solid var(--border);
+    border-left: 5px solid var(--bd-green);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.sub-group {
+    background: #f9fbf9;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 1px dashed var(--border);
+}
+
+.sub-group h4 {
+    margin: 0 0 10px 0;
+    color: var(--bd-red);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Form Elements */
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group.full {
+    grid-column: span 2;
+}
+
+label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--secondary);
+}
+
+input, select {
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    background-color: #fff;
+    transition: all 0.3s;
+    font-family: inherit;
+}
+
+input:focus, select:focus {
+    border-color: var(--bd-green);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(0, 106, 78, 0.8);
+}
+
+/* Tooltip style for help icons */
+.tooltip {
+    cursor: help;
+    color: var(--bd-red);
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+/* ================= BUTTONS ================= */
+.btn-calc {
+    width: 100%;
+    padding: 18px;
+    background: var(--bd-red); /* Red Sun */
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(244, 42, 65, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn-calc:hover {
+    background: #d32f2f;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(244, 42, 65, 0.8);
+}
+
+/* ================= RESULTS SECTION ================= */
+.sticky-panel {
+    position: sticky;
+    top: 20px;
+}
+
+.sticky-panel h2 {
+    color: var(--bd-green);
+    margin-top: 0;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 10px;
+}
+
+.kpi-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.kpi {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid var(--border);
+    box-shadow: 0 2px 5px var(--shadow);
+}
+
+.kpi.highlight {
+    background: var(--bd-green);
+    color: var(--white);
+    border: none;
+    border-bottom: 4px solid var(--gold); /* Touch of gold */
+}
+
+.kpi small {
+    display: block;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    opacity: 0.9;
+    margin-bottom: 5px;
+    font-weight: 600;
+}
+
+.kpi span {
+    font-size: 1.8rem;
+    font-weight: 800;
+}
+
+/* Result Table */
+.result-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--white);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.result-table th, 
+.result-table td {
+    padding: 12px 15px;
+    text-align: right;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.result-table th:first-child, 
+.result-table td:first-child {
+    text-align: left;
+    font-weight: 600;
+    color: var(--secondary);
+}
+
+.result-table thead th {
+    background: var(--bd-green);
+    color: var(--white);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+
+.result-table tfoot th {
+    background: #fff8e1; /* Light gold background */
+    font-weight: 800;
+    font-size: 1rem;
+    color: var(--bd-red);
+    border-top: 2px solid var(--gold);
+}
+
+.metrics-box {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--gold);
+}
+
+.metrics-box h3 {
+    margin: 0 0 15px 0;
+    color: var(--bd-green);
+    font-size: 1rem;
+}
+
+.metrics-box p {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px 0;
+    border-bottom: 1px dashed var(--border);
+    padding-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.metrics-box span {
+    font-weight: 700;
+    color: var(--bd-red);
+}
+
+/* ================= MODAL ================= */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 50, 30, 0.7); /* Dark green tint */
+    backdrop-filter: blur(2px);
+}
+
+.modal-content {
+    background: var(--white);
+    margin: 5% auto;
+    width: 90%;
+    max-width: 700px;
+    border-radius: 10px;
+    overflow: hidden;
+    animation: slideIn 0.3s;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.modal-header {
+    background: var(--bd-green);
+    color: var(--white);
+    padding: 15px 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.modal-body {
+    padding: 30px;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.close {
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--white);
+    opacity: 0.8;
+}
+.close:hover { opacity: 1; }
+
+.formula {
+    background: #e0f7fa;
+    color: #006064;
+    padding: 12px;
+    border-radius: 6px;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    margin: 10px 0;
+    border-left: 4px solid var(--bd-green);
+}
+
+/* Animation */
+@keyframes slideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}

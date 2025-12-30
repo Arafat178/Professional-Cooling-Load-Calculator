@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Cooling Load Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<div class="app-container">
+    <header class="app-header">
+        <div class="logo">
+            <i class="fa-solid fa-temperature-arrow-down"></i>
+            <div>
+                <h1>Professional Cooling Load Calculator</h1>
+                <p>Method: ASHRAE Fundamentals Handbook (Heat Balance / TETD)</p>
+            </div>
+        </div>
+        <button class="btn-theory" onclick="openModal()"><i class="fa-solid fa-book"></i> Reference Theory</button>
+    </header>
+
+    <div class="calculator-grid">
+        <div class="inputs-section">
+            
+            <section class="card">
+                <div class="card-header"><i class="fa-solid fa-ruler-combined"></i> 1. Space & Conditions</div>
+                <div class="card-body grid-2">
+                    <div class="input-group">
+                        <label>Floor Area (m²)</label>
+                        <input type="number" id="area_floor" value="80">
+                    </div>
+                    <div class="input-group">
+                        <label>Ceiling Height (m)</label>
+                        <input type="number" id="height_room" value="3">
+                    </div>
+                    <div class="input-group">
+                        <label>Outdoor Temp (°C)</label>
+                        <input type="number" id="temp_out" value="33">
+                    </div>
+                    <div class="input-group">
+                        <label>Indoor Design Temp (°C)</label>
+                        <input type="number" id="temp_in" value="24">
+                    </div>
+                    <div class="input-group full">
+                        <label>Humidity Ratio Diff. (kg/kg) <span class="tooltip" title="Difference in moisture content between outdoor and indoor air. Typical: 0.008">?</span></label>
+                        <input type="number" id="delta_w" value="0.008" step="0.001">
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <div class="card-header"><i class="fa-solid fa-cube"></i> 2. Envelope Transmission (Q = U·A·ΔT)</div>
+                <div class="card-body">
+                    <div class="sub-group">
+                        <h4>Walls (Net Area)</h4> <div class="grid-2">
+                            <div class="input-group">
+                                <label>Net Wall Area (m²) <span class="tooltip" title="Gross Area - Window Area - Door Area">?</span></label>
+                                <input type="number" id="area_walls" value="104"> </div>
+                            <div class="input-group">
+                                <label>U-Value (W/m²·K)</label>
+                                <input type="number" id="u_walls" value="0.5">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="sub-group">
+                        <h4>Doors</h4>
+                        <div class="grid-2">
+                            <div class="input-group">
+                                <label>Door Area (m²)</label>
+                                <input type="number" id="area_door" value="3.6"> </div>
+                            <div class="input-group">
+                                <label>U-Value (W/m²·K)</label>
+                                <input type="number" id="u_door" value="2.45"> </div>
+                        </div>
+                    </div>
+
+                    <div class="sub-group">
+                        <h4>Roof</h4>
+                        <div class="grid-2">
+                            <div class="input-group">
+                                <label>Roof Area (m²)</label>
+                                <input type="number" id="area_roof" value="80">
+                            </div>
+                            <div class="input-group">
+                                <label>U-Value (W/m²·K)</label>
+                                <input type="number" id="u_roof" value="0.4">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="sub-group">
+                        <h4>Glass (Conduction Only)</h4>
+                        <div class="grid-2">
+                            <div class="input-group">
+                                <label>Window Area (m²)</label>
+                                <input type="number" id="area_glass" value="20">
+                            </div>
+                            <div class="input-group">
+                                <label>U-Value (W/m²·K)</label>
+                                <input type="number" id="u_glass" value="2.8">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            
+
+            <section class="card">
+                <div class="card-header"><i class="fa-solid fa-sun"></i> 3. Solar Gain (Q = A·I·SHGC·SC)</div>
+                <div class="card-body grid-2">
+                    <div class="input-group">
+                        <label>Solar Intensity (W/m²)</label>
+                        <input type="number" id="solar_intensity" value="800">
+                    </div>
+                    <div class="input-group">
+                        <label>SHGC (Glass Coeff.)</label>
+                        <input type="number" id="shgc" value="0.76" step="0.01">
+                    </div>
+                    <div class="input-group full">
+                        <label>Shading Coefficient (SC)</label>
+                        <input type="number" id="sc" value="0.7" step="0.1">
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <div class="card-header"><i class="fa-solid fa-users"></i> 4. Internal Gains</div>
+                <div class="card-body grid-2">
+                    <div class="input-group">
+                        <label>Occupants (People)</label>
+                        <input type="number" id="n_people" value="20">
+                    </div>
+                    <div class="input-group">
+                        <label>Activity Level</label>
+                        <select id="activity_level">
+                            <option value="office">Office (70W/45W)</option>
+                            <option value="retail">Retail (Standing)</option>
+                            <option value="gym">Gym/Heavy Work</option>
+                        </select>
+                    </div>
+                    <div class="input-group">
+                        <label>Lighting Density (W/m²)</label>
+                        <input type="number" id="dens_light" value="15">
+                    </div>
+                    <div class="input-group">
+                        <label>Equipment Density (W/m²)</label>
+                        <input type="number" id="dens_equip" value="20">
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <div class="card-header"><i class="fa-solid fa-wind"></i> 5. Airflow Loads</div>
+                <div class="card-body grid-2">
+                    <div class="input-group">
+                        <label>Ventilation (L/s per person)</label>
+                        <input type="number" id="vent_rate" value="10" placeholder="ASHRAE Std 62.1">
+                    </div>
+                    <div class="input-group">
+                        <label>Infiltration (ACH)</label>
+                        <input type="number" id="inf_ach" value="0.5">
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <div class="card-body">
+                    <div class="input-group full">
+                        <label>Safety Factor (1.0 - 1.3)</label>
+                        <input type="number" id="safety_factor" value="1.2" step="0.1">
+                    </div>
+                </div>
+            </section>
+
+            <button class="btn-calc" onclick="calculateLoad()">Calculate Cooling Load</button>
+        </div>
+
+        <div class="results-section">
+            <div class="sticky-panel">
+                <h2>Calculation Summary</h2>
+                
+                <div class="kpi-box">
+                    <div class="kpi">
+                        <small>Design Load</small>
+                        <span id="res_kw">0.0 kW</span>
+                    </div>
+                    <div class="kpi highlight">
+                        <small>Capacity</small>
+                        <span id="res_tons">0.0 Tons</span>
+                    </div>
+                </div>
+
+                <table class="result-table">
+                    <thead>
+                        <tr>
+                            <th>Component</th>
+                            <th>Sensible (W)</th>
+                            <th>Latent (W)</th>
+                            <th>Total (W)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="result_body">
+                        </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Subtotal</th>
+                            <th id="sum_sens">0</th>
+                            <th id="sum_lat">0</th>
+                            <th id="sum_tot">0</th>
+                        </tr>
+                        <tr>
+                            <th>Design (w/ SF)</th>
+                            <th colspan="2"></th>
+                            <th id="design_tot">0</th>
+                        </tr>
+                    </tfoot>
+                </table>
+
+                <div class="metrics-box">
+                    <h3>Performance Metrics</h3>
+                    <p>Load Density: <span id="res_density">0</span> W/m²</p>
+                    <p>Sensible Heat Ratio (SHR): <span id="res_shr">0.00</span></p>
+                    <p>Required Airflow: <span id="res_cfm">0</span> CFM</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="theoryModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>ASHRAE Calculation Theory</h2>
+            <span class="close" onclick="closeModal()">&times;</span>
+        </div>
+        <div class="modal-body">
+            <h3>1. Core Formula </h3>
+            <p>Total Load = Sensible Load + Latent Load</p>
+            <p class="formula">Q<sub>total</sub> = Q<sub>sensible</sub> + Q<sub>latent</sub></p>
+
+            <h3>2. Transmission Heat Gain [cite: 3807]</h3>
+            <p>Heat transfer through solid envelope (Walls, Roof, Glass Conduction).</p>
+            <p class="formula">Q = U × A × ΔT</p>
+
+            <h3>3. Solar Heat Gain (Glass) </h3>
+            <p>Radiant heat entering through windows.</p>
+            <p class="formula">Q = Area × Intensity × SHGC × SC</p>
+
+            <h3>4. Internal Loads</h3>
+            <ul>
+                <li><strong>People:</strong> Split into Sensible and Latent based on activity[cite: 3752].</li>
+                <li><strong>Lighting:</strong> Q = W/m² × Area[cite: 3765].</li>
+                <li><strong>Equipment:</strong> Q = W/m² × Area[cite: 3776].</li>
+            </ul>
+
+            <h3>5. Ventilation & Infiltration [cite: 3830, 3832]</h3>
+            <p><strong>Sensible:</strong> Q = 1.204 × V(L/s) × ΔT (Approx)</p>
+            <p><strong>Latent:</strong> Q = 3010 × V(L/s) × Δω</p>
+            <p><em>(Note: Constants derived from air density 1.204 kg/m³ and h<sub>fg</sub> 2450 kJ/kg)</em></p>
+
+            <h3>6. Equipment Sizing </h3>
+            <p class="formula">Tons = Q<sub>design</sub> (kW) / 3.517</p>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
