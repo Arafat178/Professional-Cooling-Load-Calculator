@@ -4,7 +4,7 @@ A precise, web-based engineering tool for calculating building cooling loads. Th
 
 The user interface is designed with a professional **"Bangladesh Theme"**, utilizing the national flag's bottle green and red palette for a distinct, localized identity.
 
-🔗 **[Live Demo]([https://arafat178.github.io/Professional-Cooling-Load-Calculator/]** 
+🔗 **[Live Demo]([https://arafat178.github.io/Professional-Cooling-Load-Calculator/])** 
 
 ---
 
